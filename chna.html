@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kent County CHNA | Vimbai Kuzanga</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:         #F5EDE0;
+      --bg-dark:    #EDE0CF;
+      --rust:       #B5451B;
+      --rust-dark:  #8F3414;
+      --rust-light: #D4622E;
+      --brown:      #2C1A0E;
+      --mid-brown:  #5A3820;
+      --muted:      #9C7B5E;
+      --card-bg:    #FAF4EC;
+      --border:     rgba(181,69,27,0.15);
+      --white:      #FFFDF9;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--brown);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.4rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(245,237,224,0.93);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--rust);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid-brown);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--rust); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      padding-top: 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-left {
+      padding: 7rem 4rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      font-weight: 700;
+      color: var(--brown);
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--rust);
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: var(--mid-brown);
+      line-height: 1.8;
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .tag {
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--rust);
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      letter-spacing: 0.03em;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-fill {
+      padding: 0.8rem 2rem;
+      background: var(--rust);
+      color: var(--white);
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-fill:hover {
+      background: var(--rust-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      padding: 0.8rem 2rem;
+      border: 1.5px solid var(--brown);
+      color: var(--brown);
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--rust);
+      color: var(--rust);
+    }
+
+    .hero-right {
+      background: var(--bg-dark);
+      padding: 7rem 4rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-box {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .stat-box .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--rust);
+      line-height: 1;
+    }
+
+    .stat-box .lbl {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
+
+    .score-strip {
+      background: var(--brown);
+      border-radius: 12px;
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .score-strip span {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .score-strip strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #E8C49A;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: var(--rust);
+      margin-bottom: 1rem;
+    }
+
+    /* SECTIONS */
+    section { padding: 6rem 0; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 4rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--brown);
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-heading em {
+      font-style: italic;
+      color: var(--rust);
+    }
+
+    /* OVERVIEW */
+    .overview { background: var(--bg); }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    .overview-text p {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--mid-brown);
+      margin-bottom: 1.1rem;
+      font-weight: 300;
+    }
+
+    .overview-text p strong { color: var(--brown); font-weight: 500; }
+
+    .tools-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+
+    .tools-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 1.25rem;
+    }
+
+    .tool-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.87rem;
+      color: var(--mid-brown);
+      font-weight: 300;
+    }
+
+    .tool-row:last-child { border-bottom: none; }
+
+    .tool-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--rust);
+      flex-shrink: 0;
+    }
+
+    /* DASHBOARDS */
+    .dashboards { background: var(--brown); }
+
+    .dashboards .section-eyebrow { color: #E8C49A; opacity: 0.7; }
+    .dashboards .section-heading { color: var(--white); }
+    .dashboards .section-heading em { color: #E8A87C; }
+    .dashboards .divider { background: #E8C49A; opacity: 0.4; }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .dash-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .dash-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(181,69,27,0.5);
+    }
+
+    .dash-thumb {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dash-thumb.d1 { background: linear-gradient(135deg, #3A2010, #6B3A1F); }
+    .dash-thumb.d2 { background: linear-gradient(135deg, #10203A, #1F3A6B); }
+    .dash-thumb.d3 { background: linear-gradient(135deg, #10301A, #1F6B3A); }
+
+    .dash-thumb-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.18);
+      text-align: center;
+      padding: 1rem;
+      letter-spacing: 0.03em;
+    }
+
+    .dash-body { padding: 1.4rem; }
+
+    .dash-num {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #E8A87C;
+      margin-bottom: 0.3rem;
+      opacity: 0.8;
+    }
+
+    .dash-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .dash-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+      margin-bottom: 1.1rem;
+      font-weight: 300;
+    }
+
+    .dash-link {
+      font-size: 0.78rem;
+      color: #E8A87C;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(232,168,124,0.3);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .dash-link:hover {
+      color: var(--white);
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    /* FINDINGS */
+    .findings { background: var(--bg-dark); }
+
+    .findings-lead {
+      font-size: 0.95rem;
+      color: var(--mid-brown);
+      line-height: 1.85;
+      max-width: 680px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    .findings-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .finding {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.75rem;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--rust);
+    }
+
+    .finding h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 0.6rem;
+    }
+
+    .finding p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .finding p strong { color: var(--mid-brown); font-weight: 500; }
+
+    /* CHIP */
+    .chip { background: var(--bg); }
+
+    .chip-lead {
+      font-size: 0.95rem;
+      color: var(--mid-brown);
+      line-height: 1.85;
+      max-width: 680px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    .chip-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .chip-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.75rem;
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--rust);
+    }
+
+    .chip-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 0.6rem;
+    }
+
+    .chip-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .chip-target {
+      display: inline-block;
+      margin-top: 0.9rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--rust);
+      font-weight: 500;
+    }
+
+    /* REPORT */
+    .report-sec { background: var(--bg-dark); }
+
+    .report-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .report-block p {
+      font-size: 0.92rem;
+      color: var(--mid-brown);
+      line-height: 1.8;
+      max-width: 520px;
+      font-weight: 300;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--brown);
+      text-align: center;
+      padding: 2.5rem;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.04em;
+    }
+
+    footer a {
+      color: #E8A87C;
+      text-decoration: none;
+    }
+
+    footer .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    /* FADE IN */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-left > * { animation: fadeUp 0.65s ease both; }
+    .hero-eyebrow  { animation-delay: 0.05s; }
+    .hero-title    { animation-delay: 0.15s; }
+    .hero-desc     { animation-delay: 0.25s; }
+    .hero-tags     { animation-delay: 0.32s; }
+    .hero-cta      { animation-delay: 0.38s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-left  { padding: 7rem 2rem 3rem; }
+      .hero-right { padding: 3rem 2rem; }
+      .overview-grid { grid-template-columns: 1fr; gap: 2.5rem; margin-top: 2rem; }
+      .dash-grid { grid-template-columns: 1fr; }
+      .findings-grid { grid-template-columns: 1fr; }
+      .chip-grid { grid-template-columns: 1fr; }
+      .container { padding: 0 1.5rem; }
+      nav { padding: 1rem 1.5rem; }
+      .report-block { padding: 2rem; }
+      .stat-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">VK</a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#skills">Skills</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Capstone Project &nbsp;·&nbsp; HC604: Hospital Analytics &nbsp;·&nbsp; 2026</p>
+      <h1 class="hero-title">Kent County<br><em>Community Health</em><br>Needs Assessment</h1>
+      <p class="hero-desc">
+        A data-driven analysis of who lives in Kent County, Michigan, what health challenges they face, and where the gaps between care and community actually are.
+      </p>
+      <div class="hero-tags">
+        <span class="tag">Tableau</span>
+        <span class="tag">Public Health</span>
+        <span class="tag">Data Visualization</span>
+        <span class="tag">Health Equity</span>
+        <span class="tag">APA 7</span>
+        <span class="tag">CHIP</span>
+      </div>
+      <div class="hero-cta">
+        <a href="https://public.tableau.com/views/KentMICommunityDemographics/KentCountyMIDemographics" target="_blank" class="btn-fill">View Dashboards</a>
+        <a href="YOUR_REPORT_LINK" target="_blank" class="btn-ghost">Download Report</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="num">670K+</div>
+          <div class="lbl">Population Analyzed</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">3</div>
+          <div class="lbl">Interactive Dashboards</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">100%</div>
+          <div class="lbl">Final Score</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">APA 7</div>
+          <div class="lbl">Research Report</div>
+        </div>
+      </div>
+      <div class="score-strip">
+        <span>Selected as example for future classes</span>
+        <strong>100 / 100</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section class="overview">
+    <div class="container">
+      <p class="section-eyebrow">Overview</p>
+      <div class="divider"></div>
+      <h2 class="section-heading">What this project <em>set out to do</em></h2>
+      <div class="overview-grid">
+        <div class="overview-text">
+          <p>A Community Health Needs Assessment is not just a regulatory requirement. It is a chance for a hospital to be honest about the community it serves and whether it is actually doing right by them. This project does that for Kent County, Michigan.</p>
+          <p>Three Tableau dashboards were built alongside a full research report to move beyond isolated data points and tell a connected story: how demographic patterns, chronic disease burden, and social drivers like housing instability and food insecurity layer on top of each other in the same communities.</p>
+          <p><strong>Kent County is where I completed my undergraduate degree at GVSU and worked as a Radiation Therapist.</strong> This was not just an academic exercise. I know these communities and the facilities that serve them, which shaped how I read the data and what I chose to flag.</p>
+        </div>
+        <div class="tools-card">
+          <h3>Tools and Methods</h3>
+          <div class="tool-row"><span class="tool-dot"></span>Tableau Public -- three interactive dashboards</div>
+          <div class="tool-row"><span class="tool-dot"></span>County Health Rankings and Roadmaps</div>
+          <div class="tool-row"><span class="tool-dot"></span>U.S. Census Bureau and ACS</div>
+          <div class="tool-row"><span class="tool-dot"></span>Kent County Health Department data</div>
+          <div class="tool-row"><span class="tool-dot"></span>Choropleth mapping</div>
+          <div class="tool-row"><span class="tool-dot"></span>Lollipop and dumbbell charts</div>
+          <div class="tool-row"><span class="tool-dot"></span>APA 7 academic report writing</div>
+          <div class="tool-row"><span class="tool-dot"></span>CHIP with five-year measurable KPIs</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARDS -->
+  <section class="dashboards">
+    <div class="container">
+      <p class="section-eyebrow">Interactive Dashboards</p>
+      <div class="divider"></div>
+      <h2 class="section-heading">Three lenses on <em>one community</em></h2>
+      <div class="dash-grid">
+
+        <div class="dash-card">
+          <div class="dash-thumb d1">
+            <div class="dash-thumb-label">Community Demographics</div>
+          </div>
+          <div class="dash-body">
+            <p class="dash-num">Dashboard 01</p>
+            <h3 class="dash-title">Community Demographics</h3>
+            <p class="dash-desc">Population distribution, age structure, race and ethnicity, income, language, gender pay gap, and educational attainment. Kent County is 70% white with a median household income of $80,685, above state and national figures, but that average obscures significant variation across communities.</p>
+            <a href="https://public.tableau.com/views/KentMICommunityDemographics/KentCountyMIDemographics?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" class="dash-link">View on Tableau Public</a>
+          </div>
+        </div>
+
+        <div class="dash-card">
+          <div class="dash-thumb d2">
+            <div class="dash-thumb-label">Health Status</div>
+          </div>
+          <div class="dash-body">
+            <p class="dash-num">Dashboard 02</p>
+            <h3 class="dash-title">Health Status</h3>
+            <p class="dash-desc">Mortality rates, life expectancy by race and ethnicity, chronic disease prevalence, maternal and infant health indicators, and STI trends benchmarked against state and national averages. Cancer is the leading cause of death at nearly 100 per 100,000, followed by heart disease at 76 per 100,000.</p>
+            <a href="https://public.tableau.com/views/CHNAKentMI-HealthStatus/KentMiHealthStatus?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" class="dash-link">View on Tableau Public</a>
+          </div>
+        </div>
+
+        <div class="dash-card">
+          <div class="dash-thumb d3">
+            <div class="dash-thumb-label">Health Related Social Needs</div>
+          </div>
+          <div class="dash-body">
+            <p class="dash-num">Dashboard 03</p>
+            <h3 class="dash-title">Health Related Social Needs</h3>
+            <p class="dash-desc">Food insecurity, housing instability, childcare access, child poverty, and social and emotional support. 51% of children qualify for free or reduced price lunch, only 7 childcare centers per 1,000 children versus the state average of 9, and 22% of residents lack social and emotional support.</p>
+            <a href="https://public.tableau.com/views/KentMIHealthRelatedSocialNeeds/KentMIHealthRelatedSocialNeeds?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" class="dash-link">View on Tableau Public</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FINDINGS -->
+  <section class="findings">
+    <div class="container">
+      <p class="section-eyebrow">Key Findings</p>
+      <div class="divider"></div>
+      <h2 class="section-heading">What the data <em>actually showed</em></h2>
+      <p class="findings-lead">From a surface level, Kent County performs well compared to state and national benchmarks. But the numbers make clear that not everyone is experiencing the same county. The distance between the best and worst outcomes is too large to look past.</p>
+      <div class="findings-grid">
+        <div class="finding">
+          <h4>Racial Disparities in Life Expectancy and Infant Mortality</h4>
+          <p>Asian residents live to 85.4 years on average while Black residents live nearly 14 years less. African American infant mortality is <strong>more than three times that of white children</strong> at 11 per 1,000, and low birth weight among Black children is double the white rate. Native American and Alaskan residents face double the premature death rate of most other groups.</p>
+        </div>
+        <div class="finding">
+          <h4>Access Does Not Equal Outcomes</h4>
+          <p>Kent County has strong provider-to-patient ratios and well-resourced mental health infrastructure including PineRest and Forest View hospitals. Yet African American and Hispanic communities are hospitalized for preventable conditions at over <strong>3,000 per 100,000 Medicare enrollees</strong>, nearly three times the Asian rate of 1,075. Better access is not producing equitable outcomes.</p>
+        </div>
+        <div class="finding">
+          <h4>STI Rates Have Not Improved Despite Available Testing</h4>
+          <p>Chlamydia rates have been above state and national averages for over a decade and continue to rise. Free testing is available through the Personal Health Services Clinic. The issue is not infrastructure. It is outreach, particularly toward <strong>the large college-aged population</strong> across Calvin University, Davenport, and GVSU campuses.</p>
+        </div>
+        <div class="finding">
+          <h4>Economic Strain Is Accumulating in Families with Children</h4>
+          <p>13% of children under 18 live in poverty and 51% qualify for free or reduced price lunch. There are only <strong>7 childcare centers per 1,000 children</strong> versus the state average of 9, and 7% of youth aged 16 to 19 are neither working nor in school. These pressures compound into long-term health outcomes that are harder to reverse.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHIP -->
+  <section class="chip">
+    <div class="container">
+      <p class="section-eyebrow">Community Health Improvement Plan</p>
+      <div class="divider"></div>
+      <h2 class="section-heading">Recommendations with <em>measurable targets</em></h2>
+      <p class="chip-lead">Kent County already has a strong foundation: 12 membership social associations per 10,000 people versus 9.5 statewide, and a network of community organizations people genuinely trust. These recommendations build on that rather than starting from scratch.</p>
+      <div class="chip-grid">
+        <div class="chip-card">
+          <h4>Close the Racial Gap in Infant Mortality</h4>
+          <p>Corewell Health Butterworth and Trinity Health need to examine how their obstetric staff engages with Black and Hispanic patients, expand doula programs so mothers have advocates with them in clinical settings, and coordinate more closely with WIC to catch warning signs before delivery. Black and Hispanic women have said consistently that they do not feel listened to, and the infant mortality numbers reflect that directly.</p>
+          <span class="chip-target">Target: halve the racial gap in infant mortality and low birth weight within five years</span>
+        </div>
+        <div class="chip-card">
+          <h4>Bring Mental Health Services to Trusted Community Spaces</h4>
+          <p>Having providers available does not mean much if getting to one requires a car, fluent English, or money that residents do not have. Hospitals should partner with community organizations, churches, and libraries that people already trust, and bring screening and referrals to those spaces. A school-based program targeting the 51% of children eligible for free or reduced price lunch would directly address the youth mental health gap.</p>
+          <span class="chip-target">Target: measurable increase in service utilization among underserved ZIP codes</span>
+        </div>
+        <div class="chip-card">
+          <h4>Expand Cardiovascular Screening to Men</h4>
+          <p>The WISEWOMAN program does important work for women's cardiovascular health but leaves out half the population. Heart disease is the second leading cause of death in the county, and African American and Hispanic men face higher premature death rates than most other groups. Corewell Health should develop an equivalent program delivered through barbershops and recreation centers that already serve as trusted gathering points.</p>
+          <span class="chip-target">Target: reductions in blood pressure and cholesterol among enrolled participants</span>
+        </div>
+        <div class="chip-card">
+          <h4>Move STI Outreach onto College Campuses</h4>
+          <p>Free testing is available but chlamydia rates keep climbing. Young adults aged 18 to 35 are the group most affected, and Kent County's large college population is a direct channel that is not being used. Hospitals and the health department should partner with local universities to normalize sexual health conversations on campus rather than waiting for students to seek out a clinic.</p>
+          <span class="chip-target">Target: declining chlamydia rate relative to state and national benchmarks within three years</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REPORT -->
+  <section class="report-sec">
+    <div class="container">
+      <p class="section-eyebrow">Written Report</p>
+      <div class="divider"></div>
+      <h2 class="section-heading">Full <em>APA 7</em> Research Report</h2>
+      <div class="report-block">
+        <p>The written report synthesizes all three dashboards into a single narrative covering community demographics, current service offerings, key health findings, and a full Community Health Improvement Plan with measurable KPIs. Written in APA 7 format for HC604: Hospital Analytics at Clarkson University, March 2026.</p>
+        <a href="YOUR_REPORT_LINK" class="btn-fill" target="_blank">Download Report</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="/" class="footer-logo">VK</a>
+    <p>Part of <a href="/">Vimbai Kuzanga's portfolio</a> &nbsp;·&nbsp; MS Applied Data Science, Clarkson University &nbsp;·&nbsp; <a href="https://github.com/kuzangvh" target="_blank">GitHub</a></p>
+  </footer>
+
+</body>
+</html>
