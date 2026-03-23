@@ -44,12 +44,9 @@
     }
 
     .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--rust);
+      display: flex;
+      align-items: center;
       text-decoration: none;
-      letter-spacing: 0.02em;
     }
 
     .nav-links {
@@ -549,12 +546,10 @@
     }
 
     footer .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.6);
-      display: block;
+      display: inline-flex;
+      align-items: center;
       margin-bottom: 0.75rem;
+      opacity: 0.7;
     }
 
     /* FADE IN */
@@ -589,7 +584,25 @@
 <body>
 
   <nav>
-    <a href="/" class="nav-logo">VK</a>
+    <a href="/" class="nav-logo">
+      <svg viewBox="0 0 110 76" width="52" height="36">
+        <line x1="5" y1="5" x2="38" y2="65" stroke="#C1440E" stroke-width="6.5" stroke-linecap="round"/>
+        <line x1="71" y1="5" x2="38" y2="65" stroke="#E07B39" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="5"  cy="5"  r="4.5" fill="#C1440E"/>
+        <circle cx="71" cy="5"  r="4"   fill="#E07B39"/>
+        <circle cx="38" cy="65" r="5.5" fill="#2C1A0E"/>
+        <circle cx="59" cy="22" r="3.5" fill="#5C6B3A"/>
+        <line x1="59" y1="22" x2="100" y2="3" stroke="#5C6B3A" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 5" opacity="0.6"/>
+        <circle cx="70" cy="17" r="2.2" fill="#5C6B3A" opacity="0.75"/>
+        <circle cx="82" cy="11" r="2.2" fill="#5C6B3A" opacity="0.65"/>
+        <circle cx="100" cy="3" r="3"   fill="#5C6B3A"/>
+        <line x1="59" y1="22" x2="103" y2="52" stroke="#5C6B3A" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 5" opacity="0.6"/>
+        <circle cx="70" cy="29" r="2.2" fill="#5C6B3A" opacity="0.75"/>
+        <circle cx="83" cy="37" r="2.2" fill="#5C6B3A" opacity="0.65"/>
+        <circle cx="103" cy="52" r="3"  fill="#5C6B3A"/>
+        <circle cx="59" cy="22" r="6" fill="none" stroke="#5C6B3A" stroke-width="1" opacity="0.3"/>
+      </svg>
+    </a>
     <ul class="nav-links">
       <li><a href="/#about">About</a></li>
       <li><a href="/#projects">Projects</a></li>
@@ -795,7 +808,25 @@
   </section>
 
   <footer>
-    <a href="/" class="footer-logo">VK</a>
+    <a href="/" class="footer-logo">
+      <svg viewBox="0 0 110 76" width="44" height="30">
+        <line x1="5" y1="5" x2="38" y2="65" stroke="#C1440E" stroke-width="6.5" stroke-linecap="round"/>
+        <line x1="71" y1="5" x2="38" y2="65" stroke="#E07B39" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="5"  cy="5"  r="4.5" fill="#C1440E"/>
+        <circle cx="71" cy="5"  r="4"   fill="#E07B39"/>
+        <circle cx="38" cy="65" r="5.5" fill="#2C1A0E"/>
+        <circle cx="59" cy="22" r="3.5" fill="#5C6B3A"/>
+        <line x1="59" y1="22" x2="100" y2="3" stroke="#5C6B3A" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 5" opacity="0.6"/>
+        <circle cx="70" cy="17" r="2.2" fill="#5C6B3A" opacity="0.75"/>
+        <circle cx="82" cy="11" r="2.2" fill="#5C6B3A" opacity="0.65"/>
+        <circle cx="100" cy="3" r="3"   fill="#5C6B3A"/>
+        <line x1="59" y1="22" x2="103" y2="52" stroke="#5C6B3A" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 5" opacity="0.6"/>
+        <circle cx="70" cy="29" r="2.2" fill="#5C6B3A" opacity="0.75"/>
+        <circle cx="83" cy="37" r="2.2" fill="#5C6B3A" opacity="0.65"/>
+        <circle cx="103" cy="52" r="3"  fill="#5C6B3A"/>
+        <circle cx="59" cy="22" r="6" fill="none" stroke="#5C6B3A" stroke-width="1" opacity="0.3"/>
+      </svg>
+    </a>
     <p>Part of <a href="/">Vimbai Kuzanga's portfolio</a> &nbsp;·&nbsp; MS Applied Data Science, Clarkson University &nbsp;·&nbsp; <a href="https://github.com/kuzangvh" target="_blank">GitHub</a></p>
   </footer>
 
